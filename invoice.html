@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Invoice</title>
+		<style>
+            .invoice-box {
+                width: 21cm;
+                height: 29.7cm;
+                margin: 30mm 45mm 30mm 45mm;
+                padding: 100px;
+                font-size: 16px;
+                line-height: 24px;
+                font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+                color: rgb(33,33,33);
+                border: Opx solid;
+            }
+
+            .invoice-box table {
+                width: 100%;
+                padding: 0;
+            }
+
+            .top {
+                vertical-align: top;
+            }
+
+            .bottom {
+                vertical-align: bottom;
+            }
+
+            .right {
+                text-align: right;
+            }
+
+            .left {
+                text-align: left;
+            }
+
+            .borderleft {
+                border-width: 0px 0px 0px 1px;
+                border-style: solid;
+                padding-left: 10px;
+            }
+
+            .borderright {
+                padding-right: 0px;
+                width: 0px;
+            }
+            
+            .tableheader {
+                text-align: left;
+                font-weight: bold;
+            }
+
+            .tableheader2 {
+                text-align: right;
+                font-weight: bold;
+            }
+		</style>
+	</head>
+
+	<body>
+		<div class="invoice-box">
+			<table cellpadding="0" cellspacing="0">
+                <tr>
+                    <td class="top"><strong>FACTUUR</strong></td><td>&nbsp;</td>
+                    <td class="top">Van</td><td class="borderleft"><strong>Hoogin BV</strong></br>Reutenbeek 76</br>3090 Overijse</br></br>BTW: BE 0770.419.962</br>IBAN: BE15 9734 1126 9930</br>BIC: ARSPBE22</br>GSM: +32 478 30 70 52</br></br></td>
+                </tr>
+                <br/><br/>
+                <tr>
+                    <td class="bottom">
+                        <table>
+                            <tr>
+                                <td class="borderright">Factuurnummer&nbsp;</br>Factuurdatum</br>Vervaldatum</td>
+                                <td class="borderleft"><strong>{{invoiceNb}}</strong></br>{{created}}</br>{{due}}</td>
+                            </tr>
+                        </table>
+                    </td><td>&nbsp;</td><td class="top">Voor</td><td class="borderleft"><strong>{{customer.name}}</strong></br>{{customer.street}}</br>{{customer.zipcode}} {{customer.city}}</br></br>BTW: {{customer.vat}}</td>
+                </tr>
+			</table>
+            <br/><br/>
+            <table>
+                <tr><td class="tableheader">Omschrijving</td><td class="tableheader2">Bedrag</td></tr>
+                {{#each lines}}
+                    <tr><td>{{this.description}}</td><td class="right">{{this.amount}}</td></tr>
+                {{/each}}
+                <tr><td colspan="2">&nbsp;</td></tr>
+                <tr><td class="right"><strong>SubTotaal:</strong></td><td class="right">{{totals.subtotal}}</td></tr>
+                <tr><td class="right"><strong>BTW 21%:</strong></td><td class="right">{{totals.vatAmount}}</td></tr>
+                <tr><td class="right"><strong>Totaal:</strong></td><td class="right">{{totals.total}}</td></tr>
+            </table>
+            <br/><br/>
+            <p>U wordt vriendelijk verzocht om te voldoen aan bovenstaand bedrag binnen de voorgestelde betalingstermijn.</p>
+		</div>
+	</body>
+</html>
